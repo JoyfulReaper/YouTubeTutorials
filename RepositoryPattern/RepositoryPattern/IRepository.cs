@@ -17,6 +17,6 @@ namespace RepositoryPattern
         void addRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities)
+        void RemoveRange(IEnumerable<TEntity> entities);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryPattern
 {
-    interface ICourseRepository
+    interface ICourseRepository : IRepository<Course>
     {
         IEnumerable<Course> GetTopSellingCourses(int count);
         IEnumerable<Course> GetCoursesWithAuthors(int pageIndex, int pageSaze);
