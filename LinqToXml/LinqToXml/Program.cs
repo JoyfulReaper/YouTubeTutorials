@@ -1,6 +1,9 @@
-﻿using System.Xml.Linq;
+﻿// https://www.youtube.com/watch?v=H6AvBDcTn3g
+
+using System.Xml.Linq;
 using System.Linq;
 using System;
+using System.IO;
 
 namespace LinqToXml
 {
@@ -9,9 +12,24 @@ namespace LinqToXml
         private static void Main(string[] args)
         {
             //BuildStudent2Xml();
+            CreateXml();
             ReadStudent2Xml();
             //CreateXmlDocument();
             //CreateXmlDocumentInMemory();
+        }
+
+        public static void CreateXml()
+        {
+            var data = new XElement("Persons",
+                            new XElement("Person",
+                                new XElement("Name", "Raj"),
+                                new XElement("Age", 32)),
+                                                        new XElement("Person",
+                                new XElement("Name", "Tom"),
+                                new XElement("Age", 30))
+                            );
+
+            File.WriteAllText(@"C:\GitHub\YouTubeTutorials\LinqToXml\LinqToXml\data4.xml", data.ToString());
         }
 
         public static void ReadStudent2Xml()
@@ -20,12 +38,33 @@ namespace LinqToXml
             var studentsData = XElement.Load(filePath);
             var data = studentsData.Descendants("Student").Where(st => (int)st.Element("Class") == 10);
 
+            var data2 = studentsData.Descendants("Student").Where(st =>
+           {
+               var subjects = st.Element("Marks").Descendants("Subject");
+               var mathSubject = subjects.FirstOrDefault(sub => (string)sub.Attribute("Title") == "Maths");
+               return (int)mathSubject > 85;
+           });
+
+            // Class 10
             foreach(var student in data)
             {
                 Console.WriteLine($" {student.Element("Name").Value }");
 
                 var marks = student.Descendants("Subject");
                 foreach(var item in marks)
+                {
+                    Console.WriteLine($"    {item.Attribute("Title").Value} : {item.Value}");
+                }
+            }
+
+            // Math Marks > 85
+            Console.WriteLine();
+            foreach (var student in data2)
+            {
+                Console.WriteLine($" {student.Element("Name").Value }");
+
+                var marks = student.Descendants("Subject");
+                foreach (var item in marks)
                 {
                     Console.WriteLine($"    {item.Attribute("Title").Value} : {item.Value}");
                 }
@@ -53,7 +92,6 @@ namespace LinqToXml
 
         public static void CreateXmlDocumentInMemory()
         {
-            //Obsolete
             XDocument xmlDocument = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment("Creating an XML Tree using LINQ to XML"),
@@ -70,7 +108,6 @@ namespace LinqToXml
 
         public static void CreateXmlDocument()
         {
-            //Obsolete
             XDocument xmlDocument = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
 
