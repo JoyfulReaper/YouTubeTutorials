@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace LinqToXml
 {
@@ -11,11 +12,22 @@ namespace LinqToXml
     {
         private static void Main(string[] args)
         {
+            Test1();
+
             //BuildStudent2Xml();
-            CreateXml();
-            ReadStudent2Xml();
+            //CreateXml();
+            //ReadStudent2Xml();
             //CreateXmlDocument();
             //CreateXmlDocumentInMemory();
+        }
+
+        public static void Test1()
+        {
+            var sts = new Students();
+            XmlSerializer xs = new XmlSerializer(typeof(Students));
+
+            using (Stream s = File.Create(@"C:\GitHub\YouTubeTutorials\LinqToXml\LinqToXml\data5.xml"))
+                xs.Serialize(s, sts);
         }
 
         public static void CreateXml()
@@ -96,7 +108,7 @@ namespace LinqToXml
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment("Creating an XML Tree using LINQ to XML"),
                 new XElement("Students",
-                from student in Student.GetAllStudents()
+                from student in Student1.GetAllStudents()
                 select new XElement("Student", new XAttribute("Id", student.Id),
                     new XElement("Name", student.Name),
                     new XElement("Gender", student.Gender),

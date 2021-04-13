@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Student>
+    <Name>Thomas</Name>
+    <Class>10</Class>
+    <Marks>
+      <Subject Title="Maths">96</Subject>
+      <Subject Title="Science">83</Subject>
+      <Subject Title="History">63</Subject>
+    </Marks>
+  </Student>
+  <Student>
+    <Name>Kyle</Name>
+    <Class>10</Class>
+    <Marks>
+      <Subject Title="Maths">64</Subject>
+      <Subject Title="Science">83</Subject>
+      <Subject Title="History">80</Subject>
+    </Marks>
+  </Student>
+  <Student>
+    <Name>Rohan</Name>
+    <Class>10</Class>
+    <Marks>
+      <Subject Title="Maths">92</Subject>
+      <Subject Title="Science">80</Subject>
+      <Subject Title="History">75</Subject>
+    </Marks>
+  </Student>
+  <Student>
+    <Name>Raj</Name>
+    <Class>10</Class>
+    <Marks>
+      <Subject Title="Maths">87</Subject>
+      <Subject Title="Science">86</Subject>
+      <Subject Title="History">75</Subject>
+    </Marks>
+  </Student>
+</Students>
