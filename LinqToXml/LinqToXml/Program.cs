@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using System.Linq;
+using System;
 
 namespace LinqToXml
 {
@@ -7,16 +8,28 @@ namespace LinqToXml
     {
         private static void Main(string[] args)
         {
-            BuildStudent2Xml();
-            Test1();
+            //BuildStudent2Xml();
+            ReadStudent2Xml();
             //CreateXmlDocument();
             //CreateXmlDocumentInMemory();
         }
 
-        public static void Test1()
+        public static void ReadStudent2Xml()
         {
             var filePath = @"C:\GitHub\YouTubeTutorials\LinqToXml\LinqToXml\data3.xml";
-            //var data = XElement.Load(filePath);
+            var studentsData = XElement.Load(filePath);
+            var data = studentsData.Descendants("Student").Where(st => (int)st.Element("Class") == 10);
+
+            foreach(var student in data)
+            {
+                Console.WriteLine($" {student.Element("Name").Value }");
+
+                var marks = student.Descendants("Subject");
+                foreach(var item in marks)
+                {
+                    Console.WriteLine($"    {item.Attribute("Title").Value} : {item.Value}");
+                }
+            }
         }
 
         public static void BuildStudent2Xml()
@@ -30,9 +43,9 @@ namespace LinqToXml
                     new XElement("Name", s.Name),
                     new XElement("Class", s.Class),
                     new XElement("Marks",
-                    new XElement("Subject", new XAttribute("Maths", s.Maths)),
-                    new XElement("Subject", new XAttribute("Science", s.Maths)),
-                    new XElement("Subject", new XAttribute("History", s.Maths)))
+                    new XElement("Subject", new XAttribute("Title", "Maths"), s.Maths),
+                    new XElement("Subject", new XAttribute("Title", "Science"), s.Science),
+                    new XElement("Subject", new XAttribute("Title", "History"), s.Maths))
                     )));
             students.Save(@"C:\GitHub\YouTubeTutorials\LinqToXml\LinqToXml\data3.xml");
             System.Console.WriteLine(students.ToString());

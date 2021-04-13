@@ -4,36 +4,36 @@
     <Name>Thomas</Name>
     <Class>10</Class>
     <Marks>
-      <Subject Maths="85" />
-      <Subject Science="85" />
-      <Subject History="85" />
+      <Subject Title="Maths">85</Subject>
+      <Subject Title="Science">89</Subject>
+      <Subject Title="History">85</Subject>
     </Marks>
   </Student>
   <Student>
     <Name>Luise</Name>
     <Class>8</Class>
     <Marks>
-      <Subject Maths="82" />
-      <Subject Science="82" />
-      <Subject History="82" />
+      <Subject Title="Maths">82</Subject>
+      <Subject Title="Science">80</Subject>
+      <Subject Title="History">82</Subject>
     </Marks>
   </Student>
   <Student>
     <Name>Rohan</Name>
     <Class>6</Class>
     <Marks>
-      <Subject Maths="89" />
-      <Subject Science="89" />
-      <Subject History="89" />
+      <Subject Title="Maths">89</Subject>
+      <Subject Title="Science">80</Subject>
+      <Subject Title="History">89</Subject>
     </Marks>
   </Student>
   <Student>
     <Name>Raj</Name>
     <Class>10</Class>
     <Marks>
-      <Subject Maths="88" />
-      <Subject Science="88" />
-      <Subject History="88" />
+      <Subject Title="Maths">88</Subject>
+      <Subject Title="Science">80</Subject>
+      <Subject Title="History">88</Subject>
     </Marks>
   </Student>
 </Students>
