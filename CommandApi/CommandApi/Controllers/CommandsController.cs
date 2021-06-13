@@ -65,5 +65,23 @@ namespace CommandApi.Controllers
 
             return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDto.Id }, commandReadDto);
         }
+
+        // PUT api/commands/{id} (full update). PATCH is perfered
+        [HttpPut("{id}")]
+        public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
+        {
+            var commandModelFromRepo = _commandRepo.GetCommandById(id);
+            if(commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(commandUpdateDto, commandModelFromRepo);
+
+            _commandRepo.UpdateCommand(commandModelFromRepo);
+            _commandRepo.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
