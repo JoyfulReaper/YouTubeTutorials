@@ -40,7 +40,7 @@ namespace CommandApi.Controllers
         }
 
         // GET api/commands/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetCommandById")]
         public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var commandItem = _commandRepo.GetCommandById(id);
@@ -51,6 +51,19 @@ namespace CommandApi.Controllers
             }
 
             return Ok(_mapper.Map<CommandReadDto>(commandItem));
+        }
+
+        // POST api/commands
+        [HttpPost]
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto);
+            _commandRepo.CreateCommand(commandModel);
+            _commandRepo.SaveChanges();
+
+            var commandReadDto = _mapper.Map<CommandReadDto>(commandModel);
+
+            return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDto.Id }, commandReadDto);
         }
     }
 }

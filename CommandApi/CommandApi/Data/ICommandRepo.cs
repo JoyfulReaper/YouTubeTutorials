@@ -6,8 +6,13 @@ namespace CommandApi.Data
 {
     public interface ICommandRepo
     {
+        bool SaveChanges();
+
+
         IEnumerable<Command> GetAllCommands();
 
         Command GetCommandById(int id);
+
+        void CreateCommand(Command cmd);
     }
 }
