@@ -13,13 +13,23 @@ namespace CommandApi.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        private readonly MockCommandRepo _repository = new MockCommandRepo();
+        private readonly ICommandRepo _commandRepo;
+
+        public CommandsController(ICommandRepo commandRepo)
+        {
+            _commandRepo = commandRepo;
+        }
 
         // GET api/commands
         [HttpGet]
         public ActionResult<IEnumerable<Command>> GetAllCommands()
         {
-            var commandItems = _repository.GetAllCommands();
+            var commandItems = _commandRepo.GetAllCommands();
+
+            if (commandItems == null)
+            {
+                return NotFound("Nope.avi");
+            }
 
             return Ok(commandItems);
         }
@@ -28,7 +38,12 @@ namespace CommandApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Command> GetCommandById(int id)
         {
-            var commandItem = _repository.GetCommandById(id);
+            var commandItem = _commandRepo.GetCommandById(id);
+
+            if(commandItem == null)
+            {
+                return NotFound("Nope.avi");
+            }
 
             return Ok(commandItem);
         }

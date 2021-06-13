@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CommandApi.Data
 {
-    interface ICommandRepo
+    public interface ICommandRepo
     {
         IEnumerable<Command> GetAllCommands();
 
