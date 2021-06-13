@@ -1,4 +1,6 @@
-﻿using CommandApi.Data;
+﻿using AutoMapper;
+using CommandApi.Data;
+using CommandApi.Dtos;
 using CommandApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,15 +16,18 @@ namespace CommandApi.Controllers
     public class CommandsController : ControllerBase
     {
         private readonly ICommandRepo _commandRepo;
+        private readonly IMapper _mapper;
 
-        public CommandsController(ICommandRepo commandRepo)
+        public CommandsController(ICommandRepo commandRepo,
+            IMapper mapper)
         {
             _commandRepo = commandRepo;
+            _mapper = mapper;
         }
 
         // GET api/commands
         [HttpGet]
-        public ActionResult<IEnumerable<Command>> GetAllCommands()
+        public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
         {
             var commandItems = _commandRepo.GetAllCommands();
 
@@ -31,12 +36,12 @@ namespace CommandApi.Controllers
                 return NotFound("Nope.avi");
             }
 
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems));
         }
 
         // GET api/commands/{id}
         [HttpGet("{id}")]
-        public ActionResult<Command> GetCommandById(int id)
+        public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var commandItem = _commandRepo.GetCommandById(id);
 
@@ -45,7 +50,7 @@ namespace CommandApi.Controllers
                 return NotFound("Nope.avi");
             }
 
-            return Ok(commandItem);
+            return Ok(_mapper.Map<CommandReadDto>(commandItem));
         }
     }
 }

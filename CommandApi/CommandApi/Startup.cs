@@ -38,6 +38,7 @@ namespace CommandApi
             });
 
             //services.AddScoped<ICommandRepo, MockCommandRepo>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICommandRepo, SqlCommandRepo>();
         }
 
