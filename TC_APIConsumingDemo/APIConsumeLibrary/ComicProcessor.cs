@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MonkeyCache;
+using MonkeyCache.SQLite;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,17 +24,34 @@ namespace APIConsumeLibrary
                 url = "https://xkcd.com/info.0.json";
             }
 
-            using HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url);
-            if(response.IsSuccessStatusCode)
-            {
-                ComicModel comic = await response.Content.ReadAsAsync<ComicModel>();
+            return await ApiHelper.GetAsync<ComicModel>(url, TimeSpan.FromDays(1));
 
-                return comic;
-            }
-            else
-            {
-                throw new Exception(response.ReasonPhrase);
-            }
+
+
+            // After messing around a bit decided not to use this code:
+            // MonkeyCaches HttpCache create a new HttpClient for each requst which you shouldn't do
+            //try
+            //{
+            //    var result = await HttpCache.Current.GetCachedAsync(Barrel.Current, url, TimeSpan.FromSeconds(30), TimeSpan.FromDays(1));
+            //    return JsonConvert.DeserializeObject<ComicModel>(result);
+            //} 
+            //catch (HttpCacheRequestException ex)
+            //{
+            //    throw ex;
+            //}
+
+            // This is the code from the Tim Corey YT video
+            //using HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    ComicModel comic = await response.Content.ReadAsAsync<ComicModel>();
+
+            //    return comic;
+            //}
+            //else
+            //{
+            //    throw new Exception(response.ReasonPhrase);
+            //}
 
         }
     }

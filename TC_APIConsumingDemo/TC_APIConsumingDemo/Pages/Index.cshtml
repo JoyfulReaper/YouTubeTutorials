@@ -9,6 +9,7 @@
     <p>
         <div class="mb-3">
             <a id="btnPrev" class="btn btn-info" asp-page="/Index" asp-route-number="@(Model.CurrentNumber - 1)">Previous</a>
+            <a id="btnRandom" class="btn btn-primary" asp-page="/Index" asp-route-number="@Model.RandomNumber">Random</a>
             <a id="btnNext" class="btn btn-info" asp-page="/Index" asp-route-number="@(Model.CurrentNumber + 1)">Next</a>
         </div>
         

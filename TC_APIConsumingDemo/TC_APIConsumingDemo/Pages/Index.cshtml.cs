@@ -9,9 +9,12 @@ namespace TC_APIConsumingDemo.Pages
         public Uri UriSource { get; set; }
         public int MaxNumber { get; set; } = 0;
         public int CurrentNumber { get; set; } = 0;
+        public int RandomNumber { get; set; }
+
         public ComicModel Comic { get; set; }
 
         private readonly ILogger<IndexModel> _logger;
+        private static readonly Random _random = new Random();
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -21,8 +24,10 @@ namespace TC_APIConsumingDemo.Pages
         public async Task OnGetAsync(int number = 0)
         {
             CurrentNumber = number;
+
             ApiHelper.InitializeClient();
             await LoadImage(CurrentNumber);
+            RandomNumber = _random.Next(MaxNumber + 1);
         }
 
         private async Task LoadImage(int imageNumber = 0)
