@@ -1,0 +1,38 @@
+﻿@page "{number:int?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">xkcd</h1>
+    <p>
+        <div class="mb-3">
+            <a id="btnPrev" class="btn btn-info" asp-page="/Index" asp-route-number="@(Model.CurrentNumber - 1)">Previous</a>
+            <a id="btnNext" class="btn btn-info" asp-page="/Index" asp-route-number="@(Model.CurrentNumber + 1)">Next</a>
+        </div>
+        
+        <div>@Model.Comic.Title - Comic# @Model.Comic.Num</div>
+        <img src="@Model.UriSource.AbsoluteUri" alt="@Model.Comic.Alt" />
+        <div>@Model.Comic.Transcript</div>
+    </p>
+</div>
+
+@section Scripts {
+    <script>
+        $(() => {
+            if(@Model.CurrentNumber == 1) {
+                $('#btnPrev').attr('href', "#");
+                $('#btnPrev').removeClass("btn-info")
+                    .addClass("btn-warning");
+            }
+
+            if(@Model.CurrentNumber == @Model.MaxNumber)
+            {
+                $('#btnNext').attr('href', "#")
+                $('#btnNext').removeClass("btn-info")
+                    .addClass("btn-warning");
+            }
+        })
+    </script>
+}
