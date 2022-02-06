@@ -27,7 +27,6 @@ namespace WpfAppDemo
         public MainWindow()
         {
             InitializeComponent();
-            ApiHelper.InitializeClient();
             nextImageButton.IsEnabled = false;
         }
 

@@ -8,15 +8,18 @@ namespace APIConsumeLibrary
     {
         private static HttpClient _httpClient;
 
+        static ApiHelper()
+        {
+            Barrel.ApplicationId = "ApiConsumeDemo";
+            Barrel.Current.EmptyExpired();
+        }
+
         public static HttpClient ApiClient
         {
             get
             {
                 if (_httpClient == null)
                 {
-                    Barrel.ApplicationId = "ApiConsumeDemo";
-                    Barrel.Current.EmptyExpired();
-
                     _httpClient = new HttpClient();
                     _httpClient.DefaultRequestHeaders.Accept.Clear();
                     _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

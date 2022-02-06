@@ -25,7 +25,6 @@ namespace TC_APIConsumingDemo.Pages
         {
             CurrentNumber = number;
 
-            ApiHelper.InitializeClient();
             await LoadImage(CurrentNumber);
             RandomNumber = _random.Next(MaxNumber + 1);
         }
