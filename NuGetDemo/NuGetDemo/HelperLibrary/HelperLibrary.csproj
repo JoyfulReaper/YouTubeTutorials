@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>IAmTimCoery.Helpers</RootNamespace>
+    <UserSecretsId>6ce0e68e-b8d5-42ba-8fe2-f4875d4168f5</UserSecretsId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>IAmTimCorey.HelperLibrary</PackageId>
+    <Authors>Tim Corey</Authors>
+    <Product>Tim Corey's Helper Library</Product>
+    <Description>This is my description of my helper library</Description>
+    <Copyright>2019</Copyright>
+    <PackageProjectUrl>https://www.iamtimcorey.com</PackageProjectUrl>
+    <PackageTags>IAmTimCorey Calculations Helpers</PackageTags>
+    <PackageReleaseNotes>This is the inial release</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="ReadMe.txt">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+  
+</Project>
