@@ -1,0 +1,45 @@
+﻿@page "/products"
+
+@inject NavigationManager NavigationManager
+
+
+<h3>Product List</h3>
+<br />
+
+<ViewProductsComponent OnSearchProducts="OnSearchProducts"/>
+
+@if(_listProducts is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var product in _listProducts)
+            {
+                <ProductItemComponent Product="product" />
+            }
+        </tbody>
+    </table>
+}
+<br />
+<button type="button" class="btn btn-primary" @onclick="AddProduct">Add Product</button>
+
+@code {
+    private List<Product>? _listProducts;
+
+    private void OnSearchProducts(List<Product> products)
+    {
+        _listProducts = products;
+    }
+
+    private void AddProduct()
+    {
+        NavigationManager.NavigateTo("addproduct");
+    }
+}
