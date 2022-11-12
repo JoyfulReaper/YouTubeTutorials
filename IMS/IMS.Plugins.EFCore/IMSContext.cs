@@ -19,7 +19,7 @@ public class IMSContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ProductInventory>()
-            .HasKey(pi => new { pi.Product, pi.InventoryId });
+            .HasKey(pi => new { pi.ProductId, pi.InventoryId });
 
         modelBuilder.Entity<ProductInventory>()
             .HasOne(pi => pi.Product)

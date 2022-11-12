@@ -7,7 +7,7 @@
 <br />
 @if (_product is not null)
 {
-    <EditForm Model="_product" OnInvalidSubmit="OnValidSubmit">
+    <EditForm Model="_product" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -24,7 +24,7 @@
             <InputNumber id="price" @bind-Value="_product.Price" class="form-control" />
         </div>
 
-        <ProductInventoriesComponent ref="ProductInventoriesComponent" />
+        <ProductInventoriesComponent @ref="ProductInventoriesComponent" />
 
         <br />
         <button type="submit" class="btn btn-primary">Save</button>
@@ -35,7 +35,7 @@
 @code {
     private Product? _product;
 
-    private ProductInventoriesComponent ProductInventoriesComponent;
+    private ProductInventoriesComponent ProductInventoriesComponent = default!;
 
     protected override void OnInitialized()
     {
@@ -46,7 +46,11 @@
     {
         if(_product is not null)
         {
-
+            ProductInventoriesComponent.ProductInventories.ForEach(x =>
+            {
+                x.ProductId = _product.ProductId;
+            });
+            _product.ProductInventories = ProductInventoriesComponent.ProductInventories;
 
             await AddProductUseCase.ExecuteAsync(_product);
             NavigationManager.NavigateTo("products");
