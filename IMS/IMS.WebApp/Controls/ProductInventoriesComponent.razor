@@ -21,7 +21,9 @@
                         @productInventory.Inventory.InventoryName
                     </td>
                     <td>
-                        <input type="number" min="0" max="@productInventory.Inventory.Quantity" @bind-value="productInventory.InventoryQuantity" />
+                        <input type="number" min="0" @bind-value="productInventory.InventoryQuantity"
+                            @bind-value:event="oninput" 
+                            @onchange="OnInventoryQtyChanged"/>
                     </td>
                     <td>
                         <button class="btn btn-link" type="button" @onclick="@(() => RemoveInventory(productInventory))">Remove</button>
@@ -33,15 +35,24 @@
 }
 
 @code {
+    [Parameter]
+    public EventCallback<List<ProductInventory>> OnInventorySelected { get; set; }
+
     public List<ProductInventory> ProductInventories { get; set; } = new();
 
-    private void OnSelectInventory(Inventory inventory)
+    private async Task OnSelectInventory(Inventory inventory)
     {
         if (!ProductInventories.Any(x => x.Inventory.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
         {
             ProductInventories.Add(new ProductInventory { InventoryId = inventory.InventoryId, Inventory = inventory });
         }
 
+        await OnInventorySelected.InvokeAsync(ProductInventories);
+    }
+
+    private async Task OnInventoryQtyChanged()
+    {
+        await OnInventorySelected.InvokeAsync(ProductInventories);
     }
 
     private void RemoveInventory(ProductInventory productInventory)

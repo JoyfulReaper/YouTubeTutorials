@@ -37,8 +37,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
-
         _listInventories = (await ViewInventoriesByNameUseCase.ExecuteAsync()).ToList();
     }
 

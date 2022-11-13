@@ -1,6 +1,7 @@
 ﻿@page "/products"
 
 @inject NavigationManager NavigationManager
+@inject IViewProductsByNameUseCase ViewProductsByNameUseCase
 
 
 <h3>Product List</h3>
@@ -32,6 +33,12 @@
 
 @code {
     private List<Product>? _listProducts;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        _listProducts = (await ViewProductsByNameUseCase.ExecuteAsync()).ToList();
+    }
 
     private void OnSearchProducts(List<Product> products)
     {

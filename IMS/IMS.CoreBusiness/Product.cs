@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMS.CoreBusiness.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,8 +18,29 @@ public class Product
     public int Quantity { get; set; }
 
     [Range(0, int.MaxValue, ErrorMessage = "Price must be greated or equal to {1}")]
+    [Product_EnsurePriceIsGreaterThanInventoriesPrice]
     public decimal Price { get; set; }
 
 
     public List<ProductInventory>? ProductInventories { get; set; }
+
+    public decimal TotalInventoryCost()
+    {
+        return ProductInventories.Sum(x => x.Inventory?.Price * x.InventoryQuantity ?? 0);
+    }
+
+    public bool ValidatePricing()
+    {
+        if (ProductInventories == null || ProductInventories.Count <= 0)
+        {
+            return true;
+        }
+
+        if(TotalInventoryCost() > Price)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
