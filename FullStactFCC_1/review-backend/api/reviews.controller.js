@@ -35,7 +35,7 @@ export default class ReviewsController {
     static async apiUpdateReview(req, res, next) {
         try {
             const reviewId = req.params.id;
-            const review = res.body.review;
+            const review = req.body.review;
             const user = req.body.user;
 
             const reviewResponse = await ReviewsDAO.updateReview(
@@ -60,7 +60,7 @@ export default class ReviewsController {
 
     static async apiDeleteReview(req, res, next) {
         try {
-            const reviewId = res.params.id;
+            const reviewId = req.params.id;
             const reviewResponse = await ReviewsDAO.deleteReview(reviewId);
             res.json({status: "success"})
         } catch ( e ) {

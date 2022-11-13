@@ -46,7 +46,7 @@ export default class ReviewsDAO {
                     { $set: {user: user, review: review}}
                 )
 
-                return UpdateResponse;
+                return updateResponse;
         } catch ( e ) {
             console.error(`Unable to update review: ${e}`);
             return {error: e};
