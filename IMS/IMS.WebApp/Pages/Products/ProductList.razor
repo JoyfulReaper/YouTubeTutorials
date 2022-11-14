@@ -7,9 +7,9 @@
 <h3>Product List</h3>
 <br />
 
-<ViewProductsComponent OnSearchProducts="OnSearchProducts"/>
+<ViewProductsComponent OnSearchProducts="OnSearchProducts" />
 
-@if(_listProducts is not null)
+@if (_listProducts is not null)
 {
     <table class="table">
         <thead>
@@ -21,9 +21,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var product in _listProducts)
+            @foreach (var product in _listProducts)
             {
-                <ProductItemComponent Product="product" />
+                <ProductItemComponent Product="product" OnProductDeleted="DeleteProduct" />
             }
         </tbody>
     </table>
@@ -37,7 +37,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        _listProducts = (await ViewProductsByNameUseCase.ExecuteAsync()).ToList();
+        await LoadProducts();
     }
 
     private void OnSearchProducts(List<Product> products)
@@ -48,5 +48,15 @@
     private void AddProduct()
     {
         NavigationManager.NavigateTo("addproduct");
+    }
+
+    private async Task DeleteProduct()
+    {
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        _listProducts = (await ViewProductsByNameUseCase.ExecuteAsync()).ToList();
     }
 }

@@ -21,6 +21,7 @@ public class Product
     [Product_EnsurePriceIsGreaterThanInventoriesPrice]
     public decimal Price { get; set; }
 
+    public bool IsActive { get; set; } = true;
 
     public List<ProductInventory>? ProductInventories { get; set; }
 

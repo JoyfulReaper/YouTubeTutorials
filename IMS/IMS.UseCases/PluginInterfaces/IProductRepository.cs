@@ -10,5 +10,8 @@ namespace IMS.UseCases.PluginInterfaces;
 public interface IProductRepository
 {
     Task AddProductAsync(Product product);
-    Task<List<Product>> GetProductsByName(string Name);
+    Task<List<Product>> GetProductsByNameAsync(string Name);
+    Task<Product?> GetProductByIdAsync(int productId);
+    Task UpdateProductAsync(Product product);
+    Task DeleteProductAsync(int productId);
 }

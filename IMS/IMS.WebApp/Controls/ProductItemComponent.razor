@@ -1,4 +1,7 @@
-﻿@if (Product is not null)
+﻿@inject NavigationManager NavigationManager
+@inject IDeleteProductUseCase DeleteProductUseCase
+
+@if (Product is not null)
 {
     <tr>
         <td>@Product.ProductName</td>
@@ -16,13 +19,17 @@
     [Parameter]
     public Product? Product { get; set; }
 
+    [Parameter]
+    public EventCallback OnProductDeleted { get; set; }
+
     private void EditProduct(int productId)
     {
-
+        NavigationManager.NavigateTo($"editproduct/{productId}");
     }
 
-    private void DeleteProduct(Product product)
+    private async Task DeleteProduct(Product product)
     {
-
+        await DeleteProductUseCase.ExecuteAsync(product.ProductId);
+        await OnProductDeleted.InvokeAsync();
     }
 }
