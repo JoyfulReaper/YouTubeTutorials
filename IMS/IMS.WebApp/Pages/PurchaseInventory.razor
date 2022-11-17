@@ -1,0 +1,67 @@
+﻿@page "/purchase"
+
+@inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
+
+@using IMS.WebApp.ViewModels
+
+<h3>Purchase Inventory</h3>
+<br />
+
+@if(_purchaseViewModel is not null)
+{
+    <EditForm Model="_purchaseViewModel" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="po">Purchase Order</label>
+            <InputText id="po" @bind-Value="_purchaseViewModel.PurchaseOrder" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <label for="inv">Inventory to Purchase</label>
+            <ViewInventoriesComponent
+                OnSelectInventory="OnSelectInventory" 
+                DisplaySearchResult=true/>
+            <InputText id="inv" class="form-control" @bind-Value="_purchaseViewModel.InventoryName" disabled/>
+            <input type="hidden" value="@_selectedInventory?.InventoryId" />
+            @if(_selectedInventory is not null)
+            {
+                <text>Price:</text>
+                @_selectedInventory?.Price.ToString("c")
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Quantity</label>
+            <InputNumber id="qty" @bind-Value="_purchaseViewModel.QuantityToPurchase" class="form-control"></InputNumber>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Save</button>
+   
+    </EditForm>
+}
+
+
+
+@code {
+    private PurchaseViewModel _purchaseViewModel = new();
+    private Inventory _selectedInventory;
+
+    private async Task OnValidSubmit()
+    {
+        await PurchaseInventoryUseCase.ExecuteAsync(
+            _purchaseViewModel.PurchaseOrder,
+            _selectedInventory,
+            _purchaseViewModel.QuantityToPurchase,
+            "Frank");
+    }
+
+    private void OnSelectInventory(Inventory inventory)
+    {
+        _selectedInventory = inventory;
+        _purchaseViewModel.InventoryId = inventory.InventoryId;
+        _purchaseViewModel.InventoryName = inventory.InventoryName;
+    }
+}
