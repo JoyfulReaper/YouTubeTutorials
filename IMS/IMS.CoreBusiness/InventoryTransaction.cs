@@ -21,8 +21,10 @@ public class InventoryTransaction
 
     [Required]
     public int QuantityAfter { get; set; }
-    public string PONumber { get; set; }
-    public string ProductionNumber { get; set; }
+    public string? PONumber { get; set; }
+    public string? ProductionNumber { get; set; }
+
+    public decimal? Cost { get; set; }
 
     [Required]
     public DateTime TransactionDate { get; set; }

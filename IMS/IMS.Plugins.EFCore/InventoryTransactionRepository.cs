@@ -27,6 +27,7 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
             QuantityAfter = inventory.Quantity + quantity,
             TransactionDate = DateTime.Now,
             DoneBy = doneBy,
+            Cost = price * quantity
         });
 
         await _db.SaveChangesAsync();
