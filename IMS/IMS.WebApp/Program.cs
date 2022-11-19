@@ -33,6 +33,7 @@ builder.Services.AddDbContext<IMSContext>(options =>
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IInventoryTransactionRepository, InventoryTransactionRepository>();
+builder.Services.AddTransient<IProductTransactionRepository, ProductTransactionRepository>();
 
 // DI Use cases
 builder.Services.AddTransient<IViewInventoriresByNameUseCase, ViewInventoriresByNameUseCase>();

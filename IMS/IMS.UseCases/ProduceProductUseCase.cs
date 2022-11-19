@@ -25,9 +25,9 @@ public class ProduceProductUseCase : IProduceProductUseCase
         _productTransactionRepository = productTransactionRepository;
     }
 
-    public async Task ExecuteAsync(string productionNumber, Product product, int quantity, decimal price, string doneBy)
+    public async Task ExecuteAsync(string productionNumber, Product product, int quantity, string doneBy)
     {
-        await _productTransactionRepository.ProduceAsync(productionNumber, product, quantity, price, doneBy);
+        await _productTransactionRepository.ProduceAsync(productionNumber, product, quantity, product.Price, doneBy);
 
         product.Quantity += quantity;
         await _productRepository.UpdateProductAsync(product);
