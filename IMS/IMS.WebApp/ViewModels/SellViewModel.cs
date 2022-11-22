@@ -2,10 +2,10 @@
 
 namespace IMS.WebApp.ViewModels;
 
-public class ProduceViewModel
+public class SellViewModel
 {
     [Required]
-    public string ProductionNumber { get; set; }
+    public string SalesOrderNumber { get; set; }
 
     [Required]
     public int ProductId { get; set; }
@@ -15,7 +15,9 @@ public class ProduceViewModel
 
     [Required]
     [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Quantity has to be greater than 0.")]
-    public int QuantityToProduce { get; set; }
+    public int QuantityToSell { get; set; }
 
+    [Required]
+    [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Price has to be greater than 0.")]
     public decimal ProductPrice { get; set; }
 }

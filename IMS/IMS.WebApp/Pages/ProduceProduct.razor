@@ -27,8 +27,10 @@
             <input type="hidden" value="@_selectedProduct?.ProductId" />
             @if (_selectedProduct is not null)
             {
-                <text>Price:</text>
-                @_selectedProduct?.Price.ToString("c")
+                <div style="margin-top:3px;">
+                    <text>Price:</text>
+                    @_selectedProduct?.Price.ToString("c")
+                </div>
             }
         </div>
 
@@ -69,6 +71,7 @@
 
         _produceViewModel = new();
         _selectedProduct = null;
+        _errorMessage = string.Empty;
     }
 
     private void OnSelectProduct(Product product)

@@ -45,4 +45,19 @@ public class ProductTransactionRepository : IProductTransactionRepository
 
         await _db.SaveChangesAsync();
     }
+
+    public async Task SellProductAsync(string salesOrderNumber, Product product, int quanity, decimal price, string doneBy)
+    {
+        _db.ProductTransactions.Add(new ProductTransaction
+        {
+            SalesOrderNumber = salesOrderNumber,
+            ProductId = product.ProductId,
+            QuantityBefore = product.Quantity,
+            QuantityAfter = product.Quantity - quanity,
+            TransactionDate = DateTime.Now,
+            DoneBy = doneBy,
+            UnitPrice = price
+        });
+        await _db.SaveChangesAsync();
+    }
 }
