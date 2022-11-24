@@ -27,12 +27,14 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
                     join inv in _db.Inventories on it.InventoryId equals inv.InventoryId
                     where
                         (string.IsNullOrWhiteSpace(inventoryName) || inv.InventoryName.Contains(inventoryName, StringComparison.OrdinalIgnoreCase)) &&
-                        (!dateFrom.HasValue || it.TransactionDate >= dateFrom) &&
-                        (!dateTo.HasValue || it.TransactionDate >= dateTo) &&
+                        (!dateFrom.HasValue || it.TransactionDate >= dateFrom.Value.Date) &&
+                        (!dateTo.HasValue || it.TransactionDate <= dateTo.Value.Date) &&
                         (!transactionType.HasValue || it.ActivityType == transactionType)
                     select it;
 
-        return await query.ToListAsync();
+        return await query
+            .Include(x => x.Inventory)
+            .ToListAsync();
     }
 
     public async Task PurchaseAsync(string poNumber, Inventory inventory, int quantity, decimal price, string doneBy)
