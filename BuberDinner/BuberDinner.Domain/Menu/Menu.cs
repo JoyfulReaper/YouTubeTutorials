@@ -1,4 +1,5 @@
 using BuberDinner.Domain.Common.Models;
+using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu.Entities;
 using BuberDinner.Domain.Menu.ValueObjects;
 
@@ -51,5 +52,20 @@ public sealed class Menu : AggregateRoot<MenuId>
             hostId,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+    public void AddDinner(Dinner.Dinner dinner)
+    {
+        
+    }
+
+    public void RemoveDinner(Dinner.Dinner dinner)
+    {
+
+    }
+
+    public void UpdateSection(MenuSection section)
+    {
+
     }
 }

@@ -13,7 +13,8 @@ public sealed class Guest : AggregateRoot<GuestId>
     private List<DinnerId> _pastDinnerIds = new();
     private List<DinnerId> _pendingDinnerIds = new();
     private List<BillId> _billIds = new();
-    private List<MenuReviewId> _menuReviews = new();
+    private List<MenuReviewId> _menuReviewIds = new();
+    private List<GuestRatingId> _guestRatingIds = new();
 
 
     private Guest(
@@ -41,6 +42,13 @@ public sealed class Guest : AggregateRoot<GuestId>
 
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
+
+    public IReadOnlyList<DinnerId> PastDinnerIds => _pastDinnerIds.AsReadOnly();
+    public IReadOnlyList<DinnerId> UpcomingDinnerIds => _upcomingDinnerIds.AsReadOnly();
+    public IReadOnlyList<DinnerId> PendingDinnerIds => _pendingDinnerIds.AsReadOnly();
+    public IReadOnlyList<BillId> BillIds => _billIds.AsReadOnly();
+    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
+    public IReadOnlyList<GuestRatingId> GuestRatingIds => _guestRatingIds.AsReadOnly();
 
     public static Guest Create(
         string firstName,

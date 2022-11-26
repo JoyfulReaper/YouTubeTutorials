@@ -3,6 +3,7 @@ using BuberDinner.Domain.Common.ValueObjects;
 using BuberDinner.Domain.Dinner.Entities;
 using BuberDinner.Domain.Dinner.Enums;
 using BuberDinner.Domain.Dinner.ValueObjects;
+using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu.ValueObjects;
 
 namespace BuberDinner.Domain.Dinner;
