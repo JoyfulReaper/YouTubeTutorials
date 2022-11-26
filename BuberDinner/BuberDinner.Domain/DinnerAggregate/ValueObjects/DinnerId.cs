@@ -6,7 +6,7 @@ public sealed class DinnerId : ValueObject
 {
     public Guid Value { get; }
 
-    public DinnerId(Guid value)
+    private DinnerId(Guid value)
     {
         Value = value;
     }
@@ -14,6 +14,11 @@ public sealed class DinnerId : ValueObject
     public static DinnerId CreateUnique()
     {
         return new(Guid.NewGuid());
+    }
+
+    public static DinnerId Create(string dinnerId)
+    {
+        return new(Guid.Parse(dinnerId));
     }
 
     public override IEnumerable<object> GetEqualityComponents()

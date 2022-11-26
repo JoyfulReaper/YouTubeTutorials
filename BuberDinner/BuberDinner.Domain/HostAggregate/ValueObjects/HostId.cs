@@ -5,9 +5,14 @@ public sealed class HostId : ValueObject
 {
     public Guid Value { get; }
 
-    public HostId(Guid value)
+    private HostId(Guid value)
     {
         Value = value;
+    }
+
+    public static HostId Create(string hostId)
+    {
+        return new(Guid.Parse(hostId));
     }
 
     public static HostId CreateUnique()

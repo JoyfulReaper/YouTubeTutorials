@@ -6,9 +6,14 @@ public sealed class GuestRatingId : ValueObject
 {
     public Guid Value { get; }
 
-    public GuestRatingId(Guid value)
+    private GuestRatingId(Guid value)
     {
         Value = value;
+    }
+
+    public static GuestRatingId Create(string GuestRatingId)
+    {
+        return new(Guid.Parse(GuestRatingId));
     }
 
     public static GuestRatingId CreateUnique()

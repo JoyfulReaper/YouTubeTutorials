@@ -6,9 +6,14 @@ public sealed class MenuReviewId : ValueObject
 {
     public Guid Value { get; }
 
-    public MenuReviewId(Guid value)
+    private MenuReviewId(Guid value)
     {
         Value = value;
+    }
+
+    public static MenuReviewId Create(string menuReviewId)
+    {
+        return new(Guid.Parse(menuReviewId));
     }
 
     public static MenuReviewId CreateUnique()
