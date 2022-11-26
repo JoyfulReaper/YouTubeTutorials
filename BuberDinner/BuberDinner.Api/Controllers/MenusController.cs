@@ -29,6 +29,9 @@ public class MenusController : ApiController
         var command = _mapper.Map<CreateMenuCommand>((request, HostId));
 
         var createMenuResult = await _mediator.Send(command);
-        return Ok(request);
+        return createMenuResult.Match(
+            menu => Ok(_mapper.Map<MenuResponse>(menu)),
+            errors => Problem(errors) 
+        );
     }
 }
