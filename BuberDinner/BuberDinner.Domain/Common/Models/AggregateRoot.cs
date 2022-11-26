@@ -1,4 +1,4 @@
-namespace BuberDinner.Domain.Common.Errors.Models;
+namespace BuberDinner.Domain.Common.Models;
 
 public abstract class AggregateRoot<TId> : Entity<TId>
     where TId : notnull
