@@ -2,6 +2,7 @@ using BuberBinner.Contracts.Authentication;
 using BuberDinner.Application.Authentication.Commands.Register;
 using BuberDinner.Application.Authentication.Common;
 using BuberDinner.Application.Authentication.Queries.Login;
+using BuberDinner.Domain.AggregateUser;
 using Mapster;
 
 namespace BuberDinner.Api.Common.Mapping;
