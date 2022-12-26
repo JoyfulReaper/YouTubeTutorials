@@ -1,4 +1,4 @@
-@id=6fa4a366-42b7-4ce4-b6a3-30dc2eea4a63
+@id=002a67df-598b-4050-9fdb-5b7d8e63dfe5
 
 
 DELETE http://localhost:5108/breakfasts/{{id}}
