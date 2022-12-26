@@ -11,6 +11,6 @@ public static class Errors {
             Error.Validation("Breakfast.InvalidName", $"Breakfast name must be at {Models.Breakfast.MinNameLength} to {Models.Breakfast.MaxNameLength} characters long");
 
         public static Error InvalidDescription => 
-            Error.Validation("Breakfast.InvalidDescription", $"Breakfast description must be at {Models.Breakfast.MaxDescriptionLength} to {Models.Breakfast.MaxDescriptionLength} characters long");
+            Error.Validation("Breakfast.InvalidDescription", $"Breakfast description must be at {Models.Breakfast.MinDescriptionLength} to {Models.Breakfast.MaxDescriptionLength} characters long");
     }
 }

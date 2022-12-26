@@ -1,3 +1,4 @@
+using BuberBreakfast.Contracts.Breakfast;
 using BuberBreakfast.ServiceErrors;
 using ErrorOr;
 
@@ -55,7 +56,7 @@ namespace BuberBreakfast.Models
                 errors.Add(Errors.Breakfast.InvalidName);
             }
 
-            if (description.Length < MinNameLength || description.Length > MaxNameLength)
+            if (description.Length < MinDescriptionLength || description.Length > MaxDescriptionLength)
             {
                 errors.Add(Errors.Breakfast.InvalidDescription);
             }
@@ -74,6 +75,29 @@ namespace BuberBreakfast.Models
                 DateTime.UtcNow,
                 savory,
                 sweet);
+        }
+
+        public static ErrorOr<Breakfast> From(CreateBreakfastRequest request)
+        {
+            return Create(
+                request.Name,
+                request.Description,
+                request.StartDateTime,
+                request.EndDateTime,
+                request.Savory,
+                request.Sweet);
+        }
+
+        public static ErrorOr<Breakfast> From(Guid id, UpsertBreakfastRequest request)
+        {
+            return Create(
+                request.Name,
+                request.Description,
+                request.StartDateTime,
+                request.EndDateTime,
+                request.Savory,
+                request.Sweet,
+                id);
         }
     }
 }
