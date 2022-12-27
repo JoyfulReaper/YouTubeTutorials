@@ -11,14 +11,16 @@ namespace BuberBreakfast.Models
         public const int MinDescriptionLength = 50;
         public const int MaxDescriptionLength = 150;
 
-        public Guid Id { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public DateTime StartDateTime { get; }
-        public DateTime EndDateTime { get; }
-        public DateTime LastModifedDateTime { get; }
-        public List<string> Savory { get; }
-        public List<string> Sweet { get; }
+        public Guid Id { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public DateTime StartDateTime { get; private set; }
+        public DateTime EndDateTime { get; private set; }
+        public DateTime LastModifedDateTime { get; private set; }
+        public List<string> Savory { get; private set; }
+        public List<string> Sweet { get; private set; }
+
+        private Breakfast() { }
 
         private Breakfast(
             Guid id,
