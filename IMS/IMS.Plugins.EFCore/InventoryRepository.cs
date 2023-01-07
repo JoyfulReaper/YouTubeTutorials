@@ -14,13 +14,15 @@ public class InventoryRepository : IInventoryRepository
 
     public async Task<IEnumerable<Inventory>> GetInventoryByName(string name)
     {
-        return await _db.Inventories.Where(x => x.InventoryName.Contains(name, StringComparison.OrdinalIgnoreCase) ||
-                                            string.IsNullOrWhiteSpace(name)).ToListAsync();
+        return await _db.Inventories.Where(x => x.InventoryName.ToUpper().IndexOf(name.ToUpper()) >= 0).ToListAsync();
+
+        //return await _db.Inventories.Where(x => x.InventoryName.Contains(name, StringComparison.OrdinalIgnoreCase) ||
+        //                                    string.IsNullOrWhiteSpace(name)).ToListAsync();
     }
 
     public async Task AddInventoryAsync(Inventory inventory)
     {
-        if (_db.Inventories.Any(x => x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
+        if (_db.Inventories.Any(x => x.InventoryName.ToUpper() == inventory.InventoryName.ToUpper()))
         {
             return;
         }
@@ -31,11 +33,17 @@ public class InventoryRepository : IInventoryRepository
 
     public async Task UpdateInventoryAsync(Inventory inventory)
     {
-        if(_db.Inventories.Any(x => x.InventoryId != inventory.InventoryId &&
-                                x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
+        if (_db.Inventories.Any(x => x.InventoryId != inventory.InventoryId &&
+                                x.InventoryName.ToUpper() == inventory.InventoryName.ToUpper()))
         {
             return;
         }
+
+        //if(_db.Inventories.Any(x => x.InventoryId != inventory.InventoryId &&
+        //                        x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
+        //{
+        //    return;
+        //}
 
         var inv = await _db.Inventories.FindAsync(inventory.InventoryId);
         if (inv is not null)

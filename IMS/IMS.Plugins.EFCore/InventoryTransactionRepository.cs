@@ -31,7 +31,7 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
         var query = from it in _db.InventoryTransactions
                     join inv in _db.Inventories on it.InventoryId equals inv.InventoryId
                     where
-                        (string.IsNullOrWhiteSpace(inventoryName) || inv.InventoryName.Contains(inventoryName, StringComparison.OrdinalIgnoreCase)) &&
+                        (string.IsNullOrWhiteSpace(inventoryName) || inv.InventoryName.ToUpper().IndexOf(inventoryName.ToUpper()) >= 0) &&
                         (!dateFrom.HasValue || it.TransactionDate >= dateFrom.Value.Date) &&
                         (!dateTo.HasValue || it.TransactionDate <= dateTo.Value.Date) &&
                         (!transactionType.HasValue || it.ActivityType == transactionType)

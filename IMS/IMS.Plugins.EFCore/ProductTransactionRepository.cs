@@ -33,7 +33,7 @@ public class ProductTransactionRepository : IProductTransactionRepository
         var query = from pt in _db.ProductTransactions
                     join prod in _db.Products on pt.ProductId equals prod.ProductId
                     where
-                        (string.IsNullOrEmpty(productName) || prod.ProductName.Contains(productName, StringComparison.OrdinalIgnoreCase)) &&
+                        (string.IsNullOrEmpty(productName) || prod.ProductName.ToUpper().IndexOf(productName.ToUpper()) >= 0) &&
                         (!dateFrom.HasValue || pt.TransactionDate >= dateFrom.Value.Date) &&
                         (!dateTo.HasValue || pt.TransactionDate <= dateTo.Value.Date) &&
                         (!transactionType.HasValue || pt.ActivityType == transactionType)

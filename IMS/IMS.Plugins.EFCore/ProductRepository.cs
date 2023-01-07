@@ -21,10 +21,15 @@ public class ProductRepository : IProductRepository
 
     public async Task AddProductAsync(Product product)
     {
-        if(_db.Products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
+        if (_db.Products.Any(x => x.ProductName.ToUpper() == product.ProductName.ToUpper()))
         {
             return;
         }
+
+        //if (_db.Products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
+        //{
+        //    return;
+        //}
 
         _db.Products.Add(product);
         await _db.SaveChangesAsync();
@@ -49,14 +54,14 @@ public class ProductRepository : IProductRepository
 
     public async Task<List<Product>> GetProductsByNameAsync(string name)
     {
-        return await _db.Products.Where(x => (x.ProductName.Contains(name, StringComparison.OrdinalIgnoreCase) ||
+        return await _db.Products.Where(x => (x.ProductName.ToUpper().IndexOf(name.ToUpper()) >= 0 ||
                                             string.IsNullOrWhiteSpace(name)) &&
                                             x.IsActive == true).ToListAsync();
     }
 
     public async Task UpdateProductAsync(Product product)
     {
-        if(_db.Products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
+        if(_db.Products.Any(x => x.ProductName.ToUpper() == product.ProductName.ToUpper()))
         {
             return;
         }
