@@ -1,4 +1,7 @@
 ﻿@page "/sell"
+
+@attribute [Authorize]
+
 @inject ISellProductUseCase SellProductUseCase
 
 <ErrorMessageComponent ErrorMessage="@_errorMessage" />
