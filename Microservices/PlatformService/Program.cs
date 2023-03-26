@@ -4,9 +4,21 @@ using PlatformService.SynDataServices.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddDbContext<AppDbContext>(opt => 
-        opt.UseInMemoryDatabase("InMem"));
-    
+    if (builder.Environment.IsProduction())
+    {
+        Console.WriteLine("--> Using SQL Server Db");
+        builder.Services.AddDbContext<AppDbContext>(opt => 
+            opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn"))
+        );
+    }
+    else
+    {
+        Console.WriteLine("--> Using In Memory Db");
+        builder.Services.AddDbContext<AppDbContext>(opt =>
+                opt.UseInMemoryDatabase("InMem"));
+    }
+
+
     builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
     builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
