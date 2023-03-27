@@ -41,13 +41,11 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
-
+    //app.UseHttpsRedirection();
     app.UseAuthorization();
-
     app.MapControllers();
 
-    PrepDb.PrepPopulation(app);
+    PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 
     app.Run();
 }
