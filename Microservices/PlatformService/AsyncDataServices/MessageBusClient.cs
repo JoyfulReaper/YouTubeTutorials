@@ -8,8 +8,8 @@ namespace PlatformService.AsyncDataServices;
 public class MessageBusClient : IMessageBusClient
 {
     private readonly IConfiguration _configuration;
-    private readonly IConnection _connection;
-    private readonly IModel _channel;
+    private readonly IConnection _connection = default!;
+    private readonly IModel _channel = default!;
 
     public MessageBusClient(IConfiguration configuration)
     {
@@ -17,7 +17,8 @@ public class MessageBusClient : IMessageBusClient
         var factory = new ConnectionFactory()
         {
             HostName = _configuration["RabbitMQHost"],
-            Port = int.Parse(_configuration["RabbitMQPort"])
+            Port = int.Parse(_configuration["RabbitMQPort"] ??
+                throw new Exception("Bro, you didn't set the RabbitMQPort in appsettings.json"))
         };
 
         try
