@@ -70,7 +70,7 @@ public class EventProcessor : IEventProcessor
         switch(eventType.Event)
         {
             case "Platform_Published":
-                Console.WriteLine("Platform Published Event Detected");
+                Console.WriteLine("--> Platform Published Event Detected");
                 return EventType.PlatformPublished;
             default:
                 Console.WriteLine("--> Could not determine event type");
