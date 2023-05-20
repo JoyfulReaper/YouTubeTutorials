@@ -1,0 +1,7 @@
+﻿@hostname = localhost
+@port = 7109
+@url = https://{{hostname}}:{{port}}/
+
+###
+# Get
+GET {{url}}
