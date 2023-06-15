@@ -152,10 +152,10 @@ let describeCurrentRoom world =
     |> getRoom world
     |> (bind (switch extractDetailsFromRoom) >> bind (switch describeDetails))
 
-let north ({ North = northExit}: Exits) = northExit
-let south ({ South = southExit}: Exits) = southExit
-let east ({ East = eastExit}: Exits) = eastExit
-let west ({ West = westExit}: Exits) = westExit
+let north exists = exists.North //({ North = northExit}: Exits) = northExit
+let south exits = exits.South
+let east exits = exits.East
+let west exits = exits.West
 
 let getCurrentRoom world =
     world.Player.Location
@@ -185,9 +185,68 @@ let displayResult result =
     | Failure f -> printf "%s" f
     
 
-gameWorld
-|> move south
->>= move north
->>= move east
->>= describeCurrentRoom
-|> displayResult
+type GameEvent =
+    | UpdateState of (World -> Result<World, string>)
+    | ResetState of World
+    | EndGameLoop
+
+let applyUpdate updateFunc worldState =
+    match updateFunc worldState with
+    | Success newState ->
+        describeCurrentRoom newState |> displayResult
+        newState
+    | Failure message ->
+        printfn "\n\n%s\n\n" message
+        worldState
+
+type GameEngine(initialState: World) =
+    let gameLoop =
+        MailboxProcessor.Start(fun inbox ->
+            let rec innerLoop worldState = 
+                async {
+                    let! eventMsg = inbox.Receive()
+                    match eventMsg with
+                    | UpdateState updateFunc -> return! innerLoop (applyUpdate updateFunc worldState)
+                    | ResetState newState -> return! innerLoop newState
+                    | EndGameLoop -> return ()
+                }
+            
+            innerLoop initialState)
+
+    member this.ApplyUpdate(updateFunc) =
+        gameLoop.Post (UpdateState updateFunc)
+
+    member this.Stop() =
+        gameLoop.Post (EndGameLoop)
+
+    member this.ResetState(newState) =
+        gameLoop.Post(ResetState newState)
+
+let gameEngine = GameEngine(gameWorld)
+gameEngine.ApplyUpdate(move north)
+
+let rand = System.Random()
+let playerController =
+    MailboxProcessor.Start(fun inbox ->
+        let rec innerLoop state =
+            async {
+                try
+                    let! eventMsg = inbox.Receive(2000)
+                    if eventMsg = "Stop" then return ()
+                with
+                | :? System.TimeoutException -> 
+                    ["north", north
+                     "south", south
+                     "east", east
+                     "west", west]
+                    |> List.item (rand.Next 4)
+                    |> fun (dir, dirFunc) -> printfn "Wandering %s..." dir; dirFunc
+                    |> move
+                    |> gameEngine.ApplyUpdate
+
+                    do! innerLoop state
+            }
+        
+        innerLoop 0)
+
+playerController.Post("Stop")
