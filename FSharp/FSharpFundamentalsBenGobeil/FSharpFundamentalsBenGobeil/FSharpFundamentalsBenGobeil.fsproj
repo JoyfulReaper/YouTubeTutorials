@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Tut-01.fsx" />
+    <Compile Include="Tut-02.fs" />
+    <Compile Include="UseOtherStuff.fs" />
+    <Compile Include="Tut-03.fs" />
+    <None Include="Tut-04.fsx" />
+  </ItemGroup>
+
+</Project>
