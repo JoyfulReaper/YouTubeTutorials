@@ -4,9 +4,10 @@
 
 
 // Grouping of code elements
-module Arithmetic =
-    module Addition =  // Modules can be nested
+module Arithmetic = 
+    module Addition =  // Modules can be nested. Modules can be made private
        let add x y = x + y
+       let private add' x y = x + y // Can only be used in the same module
 
 module Other =
     open Arithmetic
