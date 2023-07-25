@@ -20,5 +20,5 @@ let main argv =
                 |  (_,_,0) -> "Buzz"
                 | (n,_,_) -> string n)
             |> String.concat "\n"
-            |> printfn "Here is the output:\n %s"
+            |> printfn "Here is the output:\n%s"
     0
