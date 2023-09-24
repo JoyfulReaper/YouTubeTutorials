@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webform-backend", "webform-backend\webform-backend.csproj", "{EB317742-905D-4117-9AED-48C3437564AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB317742-905D-4117-9AED-48C3437564AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB317742-905D-4117-9AED-48C3437564AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB317742-905D-4117-9AED-48C3437564AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB317742-905D-4117-9AED-48C3437564AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

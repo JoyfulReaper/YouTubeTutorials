@@ -24,7 +24,7 @@
     </div>
 
     <div class="terms">
-        <input type="checkbox" v-model="terms" required>
+        <input type="checkbox" v-model="terms" id="terms" required>
         <label for="terms">I accept the terms and conditions</label>
     </div>
 
@@ -33,9 +33,6 @@
     </div>
 
   </form>
-
-
-
   <p>
     Email: {{ email }}
   </p>
@@ -48,11 +45,16 @@
   <p>
     Terms: {{ terms }}
   </p>
+  <p>
+    Base: {{ baseUrl }}
+  </p>
 
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+    inject: ['baseUrl'],
     data () {
         return {
             email: '',
@@ -91,6 +93,15 @@ export default {
                 }
 
                 console.log(model);
+                axios.post(`${this.baseUrl}/SignupForm`, model)
+                    .then(response => {
+                        console.log(response);
+                        alert('Account Created!');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert('There was an error creating your account: ' + error.message);
+                    })
             }
         }
     }
