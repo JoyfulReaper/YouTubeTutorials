@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using webform_backend.Data;
 using webform_backend.Models;
+using webform_backend.DTOs;
+using System.Linq;
 
 namespace webform_backend.Controllers;
 
@@ -16,15 +18,23 @@ public class SignupFormController : ControllerBase
     }
     
     [HttpPost(Name="PostSignupForm")]
-    public IActionResult PostForm(SignupForm form)
+    public IActionResult PostForm(DTOs.SignupForm form)
     {
-        var formToCreate = new SignupForm
+        var Skills = form.Skills.Select(x => new Skill { Name = x }).ToList();
+        
+        var formToCreate = new Models.SignupForm
         {
             Email = form.Email,
             Password = form.Password,
             Role = form.Role,
-            Skills = form.Skills.Select(x => new Skill { Name = x.Name }).ToList()
         };
+
+        _context.SignupForms.Add(formToCreate);
+        foreach (var skill in Skills)
+        {
+            formToCreate.Skills.Add(skill);
+        }
+        _context.SaveChanges();
         
         return Ok();
     }
