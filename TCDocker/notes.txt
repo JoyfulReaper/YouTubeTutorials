@@ -1,0 +1,41 @@
+https://www.youtube.com/watch?v=WcQ3-M4-jik
+
+
+What is Docker?
+	- Virtual Machine is a full installation including the OS and any applications
+		○ Operating System is duplicated
+	- Docker has "thin" OS layer, and "pulls" from the main OS
+		○ "Layers" stacked on top of the OS Layer
+	- Image: The OS and application layers
+
+Image: A "Layer"
+	- Independent of the other layers
+	- Read only
+	- point-in-time snapshot
+
+Container:
+	- Runs an image
+
+Dockerfile: Instructions for building a Docker image
+	- FROM: Base image to use
+	
+	
+Commands
+	- docker images
+		○ List all images
+	- docker build -t hello-docker:1.0.0 .
+		○ build the image from a dockerfile
+	- docker image history {Id}
+	- docker run  --name first-container -d -p 8081:80 hello-docker:1.0.0
+		○ -d detach
+		○ -p portonmachine:portoncontainer
+		○ Run a container
+	- docker ps -a
+		○ show containers
+		○ -a all show non-running
+	- docker stop {Id}
+		○ Stop a container
+	- docker start {id}
+		○ Start a container
+	- docker rm {id}
+Remove a container
